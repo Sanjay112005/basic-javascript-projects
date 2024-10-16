@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins',sans-serif;
+        }
+
+        body{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+            justify-content: center;
+            background: url('https://images.pexels.com/photos/1303086/pexels-photo-1303086.jpeg?auto=compress&cs=tinysrgb&w=600');
+            align-items: center;
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position: center;
+            color:white;
+            flex-direction: column;
+        }
+
+
+        .dog1{
+          display: flex;
+           justify-content: center;
+           align-items: center;
+           margin-top: 15px;
+           gap: 15px;
+           
+        }
+
+
+    h1{
+        font-family: 'Inspiration',cursive;
+        font-size: 40px;
+        margin-top: 10px;
+        font-weight:400;
+        animation: sanjay 5s linear infinite;
+    }
+
+    @keyframes sanjay{
+  0%,18%,20%,50.1%,60%,65.1%,80%,90.1%,92%
+  {
+    color: #0e3742;
+    text-shadow: none;
+  }
+18.1%,20.1%,30%,50%,60.1%,65.1%,80.1%,90%,92.1%,100%
+{
+  color: #fff;
+  text-shadow:  0 0 10px #03bcf4,
+  0 0 20px #03bcf4,
+  0 0 40px #03bcf4,
+  0 0 80px #03bcf4,
+  0 0 160px #03bcf4;
+}
+
+}
+ 
+    .dog{
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    
+    }
+    
+    small{
+        font-size: 9px;
+
+    }
+    
+    h2{
+        font-size: 20px;
+    }
+
+    @media (min-width:570px){
+        h1{
+            font-size: 90px;
+        }
+        h4{
+            font-size: 15px;
+            font-family: 'Inspiration',cursive;
+        }
+
+        h2{
+            font-size: 25px;
+        }
+
+        .dog{
+            width:70px;
+            height: 70px;
+        }
+        small{
+            font-size: 10px;
+        }
+    }
+
+    @media(min-width:780px) {
+        h1{
+            font-size: 105px;
+        }
+        h4{
+            font-size: 25px;
+            font-family: 'Inspiration',cursive;
+        }
+        h2{
+            font-size: 35px;
+        }
+        .dog{
+            width:100px;
+            height: 100px;
+        }
+        small{
+            font-size: 13.6px;
+        }
+    }
+
+    </style>
+</head>
+<body>
+  <h4>countdown to</h4>  
+<h1 >New Year</h1>
+<div class="dog1">
+
+<div class="dog">
+    <h2 id="dem1"></h2>
+    <small>days</small>
+</div>
+
+<div class="dog">
+    <h2 id="dem2">00</h2>
+    <small>Hours</small>
+</div>
+
+<div class="dog">
+    <h2 id="dem3">00</h2>
+    <small>Minutes</small>
+</div>
+
+<div class="dog">
+    <h2 id="dem4"></h2>
+    <small>Seconds</small>
+</div></div>
+
+
+<script>
+    function UpdateTime(){
+    const newyear = new Date().getFullYear();
+
+    const year = new Date(`january 1 ${newyear + 1}`)
+
+    const current = new Date();
+
+    const diff =  year - current;
+    const  a = Math.floor(diff/1000/60/60/24); 
+    const b = Math.floor((diff/1000/60/60)%24);
+    const c = Math.floor((diff/1000/60)%60);
+    const d = Math.floor((diff/1000)%60);
+
+    const e = document.getElementById("dem1");
+    const f = document.getElementById("dem2");
+    const g = document.getElementById("dem3");
+    const h = document.getElementById("dem4");
+
+    e.innerHTML = a<10?"0"+a:a;
+    f.innerHTML = b<10?"0"+b:b;
+    g.innerHTML = c<10?"0"+c:c;
+    h.innerHTML = d<10?"0"+d:d;
+    }
+    setInterval(UpdateTime,1000);
+   
+</script>
+</body>
+</html>
