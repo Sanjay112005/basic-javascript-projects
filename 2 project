@@ -1,1 +1,147 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #2980b9, #6dd5fa);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .game-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #e74c3c;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            color: white;
+            background-color: #2ecc71;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        #checks {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+
+        #scores {
+            font-size: 1.2rem;
+            color: #e74c3c;
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+  <h1>Guess the Number</h1>
+  <input type="text" id="numbers" placeholder="Enter a number between 1-10">
+  <button onclick="loosu()">Check</button>
+  <p id="checks">You are right/wrong</p>
+  <p id="scores">Score: 10</p>
+</div>
+
+<script>
+   var inputNumber = document.getElementById("numbers");
+   var resultMessage = document.getElementById("checks");
+   var scoreDisplay = document.getElementById("scores");
+   var randomNumber = Math.floor(Math.random() * 10) + 1;
+   var score = 10;
+
+   
+   var winSound = new Audio('https://www.fesliyanstudios.com/play-mp3/6408');
+var loseSound = new Audio('https://www.fesliyanstudios.com/play-mp3/6293'); 
+
+   function loosu(){
+      var userGuess = parseInt(inputNumber.value);
+
+      if(userGuess === randomNumber){
+         score += 1;
+         scoreDisplay.textContent = "Score: " + score;
+         resultMessage.textContent = "You won!";
+         resultMessage.style.color = "#2ecc71";  
+         winSound.play();  
+         alert("You won!");
+
+         randomNumber = Math.floor(Math.random() * 10) + 1;
+         inputNumber.value = "";
+      }
+      else {
+        if(score>=1){
+         score -= 1;
+         scoreDisplay.textContent = "Score: " + score;
+         resultMessage.textContent = "You lose!";
+         resultMessage.style.color = "#e74c3c";  
+         loseSound.play();  
+         alert("You lose!");}
+         else{
+          alert("restart the game")
+         }
+         
+
+         
+         document.querySelector('.game-container').classList.add('shake');
+         setTimeout(function() {
+             document.querySelector('.game-container').classList.remove('shake');
+         }, 500);
+      }
+   }
+</script>
+
+</body>
+</html>
