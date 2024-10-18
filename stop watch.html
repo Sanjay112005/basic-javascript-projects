@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inspiration', cursive;
+}
+
+
+.dog {
+    width: 450px;
+    height: 200px;
+    background-color: #1c1c1e;
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 10px 20px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 20px;
+    animation: popIn 0.8s ease-in-out;
+    transition: transform 0.4s;
+    border: 2px solid #444;
+  
+}
+
+.dog:hover {
+    transform: scale(1.05);
+}
+
+.cat {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.hours, .minutes, .seconds, .ms, .catss1 {
+    font-size: 40px;
+    width: 70px;
+    text-align: center;
+    height: 70px;
+    line-height: 70px;
+    color: #f2f2f2;
+    background-color: #292929;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7);
+    transition: background-color 0.3s ease-in-out, transform 0.3s;
+    font-family: 'Digital-7 Mono', monospace;
+}
+
+.catss1 {
+    width: 20px;
+    height: 70px;
+    line-height: 70px;
+    color: #f05454;
+    font-size: 45px;
+    font-weight: bold;
+    background: none;
+}
+
+.hours:hover, .minutes:hover, .seconds:hover, .ms:hover {
+    background-color: #444;
+    color: #00ff87;
+    transform: translateY(-3px);
+    box-shadow: 0 0 8px #00ff87, inset 0 0 12px #00ff87;
+}
+
+
+button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border: none;
+    margin-right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.start {
+    background-color: #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.7);
+}
+
+.stop {
+    background-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
+}
+
+.reset {
+    background-color: #dc3545;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.7);
+}
+
+.start-active, .stop-active {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #f2f2f2, 0 0 10px #f2f2f2;
+    }
+    to {
+        text-shadow: 0 0 20px #f2f2f2, 0 0 30px #00ff87;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .dog {
+        width: 72%;
+        height: auto;
+        padding: 15px;  
+    }
+
+    .hours, .minutes, .seconds, .ms {
+        font-size: 25px;
+        width: 45px;
+        height: 55px;
+        line-height: 55px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="dog">
+        <div class="cat">
+            <div class="hours"></div>
+            <div class="catss1">:</div>
+            <div class="minutes"></div>
+            <div class="catss1">:</div>
+            <div class="seconds"></div>
+            <div class="catss1">:</div>
+            <div class="ms"></div>
+           
+        </div>
+        <div class="cat1">
+            <button class="start" >Start</button>
+            <button class="stop">Stop</button>
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+    <script>
+        const star = document.querySelector(".start"); 
+        const sto = document.querySelector(".stop"); 
+        const rese = document.querySelector(".reset"); 
+         
+        let  hours=minutes=seconds=ms=0,current;
+        
+        star.addEventListener("click",()=>{
+              star.classList.add("start-active");
+              sto.classList.remove("stop-active")
+            star.classList.add(".active")
+           current = setInterval(()=>{
+            ms++;
+            if(ms==100){
+                seconds++;
+                ms=0;
+            }
+            if(seconds==60){
+                minutes++;
+                seconds = 0;
+
+            }
+
+            if(minutes==60){
+                hours++;
+                minutes=0;
+            }
+            update()
+           },10)
+          
+        })
+        sto.addEventListener("click",()=>{
+             star.classList.remove("start-active");
+              sto.classList.add("stop-active");
+            clearInterval(current)
+        })
+        rese.addEventListener("click",()=>{
+            star.classList.remove("start-active");
+            sto.classList.remove("stop-active")
+            hours=minutes=seconds=ms=0;
+            update();
+        })
+
+        function update(){
+
+           ahours = hours<10?"0"+hours : hours;
+           aminutes = minutes<10?"0"+minutes : minutes;
+           aseconds = seconds<10?"0"+ seconds : seconds;
+            ams = ms<10?"0" + ms : ms;
+          
+          document.querySelector(".hours").innerText = ahours;
+          document.querySelector(".minutes").innerText = aminutes;
+          document.querySelector(".seconds").innerText = aseconds;
+          document.querySelector(".ms").innerText = ams;
+
+        }
+        update()
+    </script>
+</body>
+</html>
