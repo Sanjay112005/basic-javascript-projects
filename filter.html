@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body{
+            background-color: #2f3640;
+            color: #dcdde1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .main{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 10px 0;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .mains{
+            display: flex;
+            gap: 0.5rem;
+        }
+        .mains button{
+            width: 100px;
+            height: 40px;
+            border: none;
+            background-color: #44bd32;
+            color: #fff;
+            border: 2px solid #27ae60;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+        .mains button:hover, .mains .btn-clicked{
+            background-color: #273c75;
+            transform: scale(1.08);
+        }
+        #search{
+            flex: 1;
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            padding: 0 15px;
+            border: 2px solid #44bd32;
+            border-radius: 4px;
+            outline: none;
+            font-size: 1rem;
+            background: #353b48;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        #search:focus{
+            border-color: #e1b12c;
+            background: #2f3640;
+        }
+        .images{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .imag{
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+        .imag img{
+            width: 220px;
+            height: 180px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            transition: transform 0.5s ease;
+        }
+        .imag:hover{
+            transform: translateY(-10px) scale(1.05);
+        }
+        .imag:hover img{
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px){
+            .images{
+                gap: 0.5rem;
+            }
+            .imag img{
+                width: 180px;
+                height: 150px;
+            }
+            .mains button, #search{
+                font-size: 0.9rem;
+                height: 35px;
+            }
+        }
+        @media (max-width: 480px){
+            .mains{
+                flex-direction: row;
+                
+                align-items: center;
+                gap: 0.6rem;
+
+            }
+
+            .mains button{
+               height: 24px;
+               width: 85px;
+
+
+            }
+            #search{
+          width: 300px;
+          font-size: 15px;
+          padding: 2.4px 0px;
+            }
+
+            .main{
+                flex-direction: column;
+                align-items: center;
+                
+            }
+            .imag img{
+                width: 150px;
+                height: 130px;
+            }
+        }
+        </style>
+</head> 
+<body>
+    <div class="main">
+        <div class="mains">
+        <button class="btt btn-clicked " data-filter="all">All</button>
+        <button class="btt "  data-filter="naruto">Naruto</button>
+        <button class="btt "  data-filter="one">One Piece</button>
+        <button class="btt "  data-filter="aot">AOT</button></div>
+        <input type="text" placeholder="search products" id="search">
+    </div>
+
+    <div class="images">
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGofT73z2t38b69DwNnRew5eovtXF_Vxnvg&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp8FTRk5x0uMC-FZZkUP74ZE3_Uw0zeut8ZA&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3_dVIXCXEkmRGHmRNGc6sySTCdLzbqUui0g&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO392WyrPsmM61V2xoYsZxnM5CaD0nXqIXMg&s" alt=""></div>
+        <div class="imag"  data-item="one "><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvboF9p2YRbgvsXWkuqpt1y7wYtf0EI01oFw&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttNOi99zc76PYkmU6-HnVk55wElnOS9B97w&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNR_iHrmBQpTFX3UqF9muGx99lNqmnrGDf1w&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPJljTkjs4gEfqU-TjDS5AG6ZD6NCWd0t5Q&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYBVUuuP2kfZsSglFwaUjxrt1T59wvoc86CQ&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8O6hgX8LDP7wHNGPGC0g4ViCcj1p2RFRJbA&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYSnBryk757WnzauwNInYu6YGIrL0BneIMw&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJLzvXLD7JhLYoCU80MRgv9ZBBpm9CeljfA&s" alt=""></div>
+        
+        <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzJ1B03hg0mXm1FiyotGbyPCkdTRt5BkVo7g&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhkeKiQDu6x96tQ6tIm0qGt3OdbFGR5r2CQ&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMVPeWDBt8of7_CzWthht5tyRVZnQT3ASoEA&s" alt=""></div>
+        
+
+    </div>
+    <script>
+        const a = document.querySelectorAll(".btt");
+        const b = document.querySelectorAll(".imag"); 
+        const c = document.querySelector("#search");
+
+        c.addEventListener("keyup",(e)=>{
+             searchText = e.target.value.toLowerCase().trim();
+
+            b.forEach((imag)=>{
+                const data = imag.dataset.item;
+                if(data.includes(searchText)){
+                    imag.style.display="block"                }
+                 else{
+                    imag.style.display="none"
+                 }
+                })
+
+                a.forEach((button)=>{
+                    button.classList.remove("btn-clicked")
+                })
+
+                a[0].target.classList.add("btn-clicked")
+        })
+        
+        a.forEach((button)=>{
+            button.addEventListener("click",(e)=>{
+                e.preventDefault();
+                funs(e)
+                const btsss = e.target.dataset.filter;
+
+                b.forEach((imag=>{
+                    if(btsss=="all"){
+                    imag.style.display="block";
+                    }
+                    else{
+                        const btnn = imag.dataset.item;
+                        if(btnn==btsss){
+                            imag.style.display="block"
+                        }
+                        else{
+                            imag.style.display="none";
+                        }
+                    }
+                   
+                }))
+            })
+        })
+
+        function funs(e){
+            a.forEach((button)=>{
+                button.classList.remove("btn-clicked");
+
+            })
+            e.target.classList.add("btn-clicked");
+        }
+    </script>
+</body>
+</html>
