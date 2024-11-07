@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* font-family: Arial, sans-serif; */
+            font-family: cursive;
+            scroll-behavior: smooth;
+        }
+        body{
+            background-color: #2f3640;
+            color: #dcdde1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            min-height: 100vh;
+        }
+        .main{
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 10px 0;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .mains{
+            display: flex;
+            gap: 0.5rem;
+        }
+        .mains button{
+            width: 100px;
+            height: 40px;
+            border: none;
+            background-color: #44bd32;
+            color: #fff;
+            border: 2px solid #27ae60;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+        .mains button:hover, .mains .btn-clicked{
+            background-color: #273c75;
+            transform: scale(1.08);
+        }
+        #search{
+            flex: 1;
+            width: 100%;
+            max-width: 400px;
+            height: 40px;
+            padding: 0 15px;
+            border: 2px solid #44bd32;
+            border-radius: 4px;
+            outline: none;
+            font-size: 1rem;
+            background: #353b48;
+            color: #fff;
+            transition: all 0.3s ease;
+            margin-left:300px;
+        }
+        #search:focus{
+            border-color: #e1b12c;
+            background: #2f3640;
+        }
+        .images{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.9rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .imag{
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+        .imag img{
+            width: 250px;
+          
+            height: 200px;
+            
+            /* object-fit: cover; */
+            border: 4px solid #fff;
+            transition: transform 0.5s ease;
+        }
+        .imag:hover{
+            transform: translateY(-10px) scale(1.05);
+        }
+        .imag:hover img{
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px){
+            .images{
+                gap: 0.5rem;
+            }
+            .imag img{
+                width: 180px;
+                height: 150px;
+            }
+            .mains button, #search{
+                font-size: 0.9rem;
+                height: 35px;
+            }
+        }
+        @media (max-width: 480px){
+            .mains{
+                flex-direction: row;
+                
+                align-items: center;
+                gap: 0.6rem;
+
+            }
+
+            .mains button{
+               height: 24px;
+               width: 85px;
+
+
+            }
+            #search{
+          width: 300px;
+          font-size: 15px;
+          padding: 2.4px 0px;
+          
+            }
+
+            .main{
+                flex-direction: column;
+                align-items: center;
+                
+            }
+            .imag img{
+                width: 150px;
+                height: 130px;
+            }
+        }
+
+        .carts{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            color: white;
+            font-size: 22px;
+        
+        
+        }
+        
+        .shopcontent{
+          background-color: #fff;
+          color: black;
+          padding: 5px;
+          border-radius: 5px;
+        }
+         
+        .anime-price{
+            font-weight: 500;
+        }
+
+        .anime-title{
+            color: red;
+            font-size:18px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .anime-price{
+            font-size: 14px;
+            
+        }
+          
+        .spec{
+            display: flex;
+            justify-content: space-between;
+          
+        }
+        .add-cart{
+            color: white;
+            background-color: #23d36c;
+            padding:8px;
+            margin-bottom: -5px;
+            cursor: pointer;
+            margin-right: -5px;
+        }
+
+        .add-cart:hover{
+            background-color: red;
+        }
+    
+        .carts {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            color: white;
+            font-size: 22px;
+            z-index: 99;
+        }
+        .shopcontent {
+            background-color: #fff;
+            color: black;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .anime-price {
+            font-weight: 500;
+        }
+  
+        
+        .add-cart {
+            color: white;
+            background-color: #23d36c;
+            padding: 8px;
+            cursor: pointer;
+           float: right;
+           
+        }
+
+        .cart{
+            position: fixed;
+            right:-100%;
+            z-index: 100;
+            top: 0;
+            background:white;
+            height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            color: black;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+           /* transform: translateX(100%); */
+           transition: transform 0.3s ease; 
+            width: 340px;
+         }
+
+         .cart-active{
+            right: 0;
+            transition: 0.7s; ;
+         }
+
+         .cart-title{
+            display: flex; 
+            font-family: cursive;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 15px;
+            justify-content: center;
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+         }
+
+
+
+         .cart-box{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            padding-bottom: 13px;
+            
+         }
+
+         .cart-box img{
+            width: 80px;
+            margin-left: 15px;
+            border-radius: 5px;
+            border: 3px solid rgba(0, 0, 0, 0.1); 
+            height: 80px;
+         }
+
+         .cart-box ion-icon{
+            margin-right: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            color: red;
+         }
+
+
+         .detail-box{
+        
+            line-height:25px;
+            margin-left: 40px;
+         }
+         .cart-anime-title{
+            color: rgb(253, 45, 45);
+         }
+
+         .cart-box .cart-quantity{
+            border: 0.1px solid rgb(209, 202, 202);
+         }
+
+         .total{
+              display: flex;
+              justify-content:end;
+              padding-right: 15px;
+         }
+         .total .total-title{
+            font-weight: 500;
+         }
+
+         .btn-buy{
+            color: white;
+            background-color: #2f3640;
+            padding: 10px;
+            margin-left: 15px;
+            border-radius: 3px;
+         }
+         .cart-quantity{
+           width: 30px;  
+           padding: 50 0px; 
+          height: 20px;
+         }
+
+
+         #cart-close{
+            position: absolute;
+            top: 18px;
+            right: 30px;
+            font-size: 25px;
+            cursor: pointer;
+         }
+         .price-box{
+            display: flex;
+            gap: 60px;
+            
+         }
+         .price-box .cart-amt{
+            font-size: 13px;
+            font-family: sans-serif;
+
+         }
+        
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .mains {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .anime-box {
+        margin-bottom: 10px;
+    }
+
+    .cart {
+        width: 90%;
+    }
+
+    .btt {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #search {
+        width: 90%;
+    }
+}
+.cart-active .cart-box {
+  transform: translateX(100px);
+  opacity: 0;
+  animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.anime-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.anime-box {
+    animation: fadeIn 0.6s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-buy {
+  /* width: 100%; */
+  padding: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #d9534f;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s;
+  position: relative;
+  transform: perspective(500px) translateZ(0);
+}
+.btn-buy:hover {
+  transform: perspective(500px) translateZ(20px);
+  background-color: #c9302c;
+}
+.btn-buy:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.btn-buy:hover:after {
+  opacity: 1;
+}
+         
+
+
+
+
+
+      
+
+          
+
+        </style>
+</head> 
+<body>
+    <div class="main">
+        <div class="mains">
+        <button class="btt btn-clicked " data-filter="all">All</button>
+        <button class="btt "  data-filter="naruto">Naruto</button>
+        <button class="btt "  data-filter="one">One Piece</button>
+        <button class="btt "  data-filter="aot">AOT</button></div>
+     
+
+        <input type="text" placeholder="search products" id="search">
+        <div class="carts">
+            <div class="cart-counter">0</div>
+              <ion-icon name="cart" id="cart-icon"></ion-icon></div>
+              <div class="cart cart-active">
+                <div class="cart-title">Cart Items</div>
+                <div class="cart-content">
+                  
+                </div>
+                <div class="total">
+                    <div class="total-tittle">Total</div>
+                    <div class="total-price">Rs.0</div>
+                </div>
+                <button class="btn-buy">Place Order</button>
+                <ion-icon name="close" id="cart-close"></ion-icon>
+              </div>
+
+
+    
+    </div>
+    <h2 class="title" style="margin-top: 30px; margin-bottom: 40px; font-size: 35px; display:flex; justify-content: center; align-items: center; font-family: cursive; text-transform: capitalize;">Discover the best collections</h2>
+
+    <div class="images">
+       
+        <div class="shopcontent" data-item="naruto">
+            <div class="anime-box">
+        <div class="imag" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGofT73z2t38b69DwNnRew5eovtXF_Vxnvg&s" alt="" class="anime-image"></div>
+         <h2 class="anime-title">naruto</h2>
+         
+         <span class="anime-price">Rs.500 </span>
+         <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+        </div>
+        </div>
+
+        <div class="shopcontent" data-item="one">
+            <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp8FTRk5x0uMC-FZZkUP74ZE3_Uw0zeut8ZA&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">one Piece</h2>
+        
+        <span class="anime-price">Rs.750 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+
+       <div class="shopcontent" data-item="aot">
+        <div class="anime-box">
+         <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3_dVIXCXEkmRGHmRNGc6sySTCdLzbqUui0g&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">aot</h2>
+        
+        <span class="anime-price">Rs.100 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+
+         <div class="shopcontent" data-item="naruto">
+            <div class="anime-box">
+        <div class="imag" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO392WyrPsmM61V2xoYsZxnM5CaD0nXqIXMg&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+   
+        <span class="anime-price">Rs.960 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+       <div class="shopcontent" data-item="one ">
+        <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvboF9p2YRbgvsXWkuqpt1y7wYtf0EI01oFw&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">One Piece</h2>
+   
+        <span class="anime-price">Rs.900 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+       <div class="shopcontent" data-item="aot">
+        <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQttNOi99zc76PYkmU6-HnVk55wElnOS9B97w&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">aot</h2>
+       
+        <span class="anime-price">Rs.680 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+
+          
+       <div class="shopcontent"  data-item="naruto">
+        <div class="anime-box">
+        <div class="imag"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNR_iHrmBQpTFX3UqF9muGx99lNqmnrGDf1w&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+        
+        <span class="anime-price">Rs.400 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+       <div class="shopcontent" data-item="one">
+        <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzPJljTkjs4gEfqU-TjDS5AG6ZD6NCWd0t5Q&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+        
+        <span class="anime-price">Rs.800 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+       <div class="shopcontent" data-item="aot">
+        <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYBVUuuP2kfZsSglFwaUjxrt1T59wvoc86CQ&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+       
+        <span class="anime-price">Rs.200 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+         
+
+
+        <div class="shopcontent" data-item="naruto">
+            <div class="anime-box"> 
+        <div class="imag" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8O6hgX8LDP7wHNGPGC0g4ViCcj1p2RFRJbA&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+        <span class="anime-price">Rs.350 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div></div>
+
+
+       <div class="shopcontent"  data-item="one">
+        <div class="anime-box">
+        <div class="imag" ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYSnBryk757WnzauwNInYu6YGIrL0BneIMw&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+       
+        <span class="anime-price">Rs.600 </span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+
+       <div class="shopcontent" data-item="aot">
+        <div class="anime-box">
+        <div class="imag"  ><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROJLzvXLD7JhLYoCU80MRgv9ZBBpm9CeljfA&s" alt="" class="anime-image"></div>
+        <h2 class="anime-title">naruto</h2>
+      
+        <span class="anime-price">Rs.50</span>
+        <ion-icon name="cart-outline" class="add-cart"></ion-icon>
+       </div>
+       </div>
+
+        
+        <!-- <div class="imag" data-item="naruto"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzJ1B03hg0mXm1FiyotGbyPCkdTRt5BkVo7g&s" alt=""></div>
+        <div class="imag"  data-item="one"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhkeKiQDu6x96tQ6tIm0qGt3OdbFGR5r2CQ&s" alt=""></div>
+        <div class="imag"  data-item="aot"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMVPeWDBt8of7_CzWthht5tyRVZnQT3ASoEA&s" alt=""></div> -->
+        
+
+    </div>
+    <script>
+        const a = document.querySelectorAll(".btt");
+        // const b = document.querySelectorAll(".imag"); 
+        const c = document.querySelector("#search");
+        const d = document.querySelectorAll(".shopcontent");
+
+        c.addEventListener("keyup", (e) => {
+    let searchText = e.target.value.toLowerCase().trim();
+    d.forEach((shopcontent) => {
+        const data = shopcontent.dataset.item;
+        if (data.includes(searchText)) {
+            shopcontent.style.display = "block";
+        } else {
+            shopcontent.style.display = "none"; // Complete this line to remove the error
+        }
+    });
+
+                
+
+                a.forEach((button)=>{
+                    button.classList.remove("btn-clicked")
+                })
+
+                a[0].target.classList.add("btn-clicked")
+        })
+        
+        a.forEach((button)=>{
+            button.addEventListener("click",(e)=>{
+                e.preventDefault();
+                funs(e)
+                const btsss = e.target.dataset.filter;
+
+                d.forEach((shopcontent=>{
+                    if(btsss=="all"){
+                    shopcontent.style.display="block";
+                    }
+                    else{
+                        const btnn = shopcontent.dataset.item;
+                        if(btnn==btsss){
+                            shopcontent.style.display="block"
+                        }
+                        else{
+                            shopcontent.style.display="none";
+                        }
+                    }
+                   
+                }))
+            })
+        })
+
+        function funs(e){
+            a.forEach((button)=>{
+                button.classList.remove("btn-clicked");
+
+            })
+            e.target.classList.add("btn-clicked");
+        }
+
+        const btncart = document.querySelector("#cart-icon");
+        const cart = document.querySelector(".cart");
+        const btnclose = document.querySelector("#cart-close");
+
+        btncart.addEventListener("click",()=>{
+           cart.classList.add("cart-active")
+        });
+
+        btnclose.addEventListener("click",()=>{
+            cart.classList.remove("cart-active")
+        })
+        document.addEventListener("DOMContentLoaded",load);
+         
+        function load(){
+            loadanime();
+        }
+
+        function loadanime(){
+            document.querySelector(".cart-content").addEventListener("click", function (event) {
+        if (event.target.classList.contains("cart-remove")) {
+            
+                const cartBox = event.target.closest(".cart-box");
+                
+              
+                const title = cartBox.querySelector(".cart-anime-title").innerHTML;
+                
+                
+                cartBox.remove();
+                
+                
+                itemlist = itemlist.filter(el => el.title !== title);
+               
+                loadanime();
+            }
+        
+    });
+
+            
+            var cartqs = document.querySelectorAll(".cart-quantity");
+            cartqs.forEach((input)=>{
+                input.addEventListener("change",ca)
+            })
+            
+            var addbts = document.querySelectorAll(".add-cart");
+              addbts.forEach((addb)=>{
+                addb.addEventListener("click",san);
+            })
+
+             updatetotal()
+        }
+
+
+
+        
+        function ca(){
+           if(isNaN(this.value) || this.value<1){
+            this.value=1;
+
+           }
+           loadanime(); 
+        }
+
+        var itemlist =[];
+
+        function san(){
+        
+            var animes = this.parentElement;
+            
+            var title = animes.querySelector(".anime-title").innerHTML;
+            var price = animes.querySelector(".anime-price").innerHTML;
+            var imag = animes.querySelector(".anime-image").src;
+ 
+      
+       var newproduct = {
+        title,price,imag
+       }
+         
+       if(itemlist.find((el)=>el.title==newproduct.title))
+       {
+        alert("product already added to the cart ")
+        return
+       }
+       else{
+        itemlist.push(newproduct)
+       }
+
+
+
+
+
+
+        var news = addcartitems(title,imag,price);
+        var newss = document.createElement("div");
+        newss.innerHTML=news;
+        var cartbask = document.querySelector(".cart-content");
+        cartbask.append(newss)
+        loadanime()
+        }
+        function addcartitems(title,imag,price){
+            return `
+                <div class="cart-box">
+                        <img src="${imag}" alt="" class="cart-img">
+                        <div class="detail-box">
+                            <div class="cart-anime-title">${title}</div>
+                            <div class="price-box">
+                                <div class="cart-price">${price}</div>
+                                <div class="cart-amt">${price}</div>
+
+                            </div>
+                            <input type="number" value="1" class="cart-quantity">
+                        </div>
+                        <ion-icon name="trash" class="cart-remove"></ion-icon>
+                    </div>
+                   
+            `
+        }
+
+        loadanime();
+
+        function updatetotal(){
+        const cartitems = document.querySelectorAll(".cart-box")
+        const totalvalue = document.querySelector(".total-price")
+        let tot = 0;
+
+        cartitems.forEach(product=>{
+            let priceelement = product.querySelector(".cart-price")
+            let price = parseFloat(priceelement.innerHTML.replace("Rs.",""))
+            let qty = product.querySelector(".cart-quantity").value;
+            tot+=(price*qty);
+            product.querySelector(".cart-amt").innerText = "RS." + (price*qty);
+
+             
+        })
+        totalvalue.innerHTML="Rs." + tot;
+        const cartcount = document.querySelector(".cart-counter");
+        let count = itemlist.length;
+        cartcount.innerHTML=count;
+        if(count==0){
+           cartcount.style.display="none"
+        }else{
+            cartcount.style.display="block"
+        }
+        }
+    </script>
+</body>
+</html>
